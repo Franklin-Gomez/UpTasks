@@ -1,6 +1,7 @@
 import { BrowserRouter , Route , Routes} from 'react-router-dom'
 import AppLayout from './layouts/AppLayout'
 import DashboardView from './views/DashboardView'
+import CreateProjectView from './views/projects/CreateProjectView'
 
 export default function Router() {
 
@@ -10,7 +11,8 @@ export default function Router() {
                 <Route element={<AppLayout/>}>
 
                     <Route index path='/' element={<DashboardView/>} />
-                    
+                    <Route path='/projects/create' element={<CreateProjectView/>} />
+
                 </Route>
             </Routes>
         

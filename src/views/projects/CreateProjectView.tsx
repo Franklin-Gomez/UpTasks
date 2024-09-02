@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link , useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import ProjectForm from "./ProjectForm"
 import { projectFormDataType } from "@/types/index"
 import { createProject } from "@/api/ProjectAPI"
 
 export default function CreateProjectView() {
+
+    const navigate = useNavigate()
 
     const initialValues : projectFormDataType = { 
         projectName : "",
@@ -14,11 +16,13 @@ export default function CreateProjectView() {
 
     const { register , handleSubmit , formState: { errors } } = useForm({defaultValues: initialValues })
 
-    const handleForm = ( data  :  projectFormDataType)  => { 
-        createProject( data )
+    const handleForm = async ( data  :  projectFormDataType)  => { 
+        await createProject( data )
+        navigate('/')
     }
 
     return (
+
         <>  
             <div className="max-w-3xl mx-auto">
                 

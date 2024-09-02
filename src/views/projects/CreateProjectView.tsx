@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
+import ProjectForm from "./ProjectForm"
+import { projectFormDataType } from "types"
 
 export default function CreateProjectView() {
 
-    const initialValues = { 
+    const initialValues : projectFormDataType = { 
         projectName : "",
         clientName : "",
         description : ""
@@ -11,7 +13,7 @@ export default function CreateProjectView() {
 
     const { register , handleSubmit , formState: { errors } } = useForm({defaultValues: initialValues })
 
-    const handleForm = ( data ) => { 
+    const handleForm = ( data  :  projectFormDataType)  => { 
         console.log( data )
     }
 
@@ -37,6 +39,11 @@ export default function CreateProjectView() {
                     onSubmit={handleSubmit( handleForm )}
                     noValidate // debilita validacion de html 5
                 >
+
+                    <ProjectForm
+                        register={register}
+                        errors={errors}
+                    />
 
                     <input 
                         type="submit" 

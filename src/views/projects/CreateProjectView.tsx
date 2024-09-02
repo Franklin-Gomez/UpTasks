@@ -4,6 +4,8 @@ import ProjectForm from "./ProjectForm"
 import { projectFormDataType } from "@/types/index"
 import { createProject } from "@/api/ProjectAPI"
 
+import { toast } from 'react-toastify'
+
 export default function CreateProjectView() {
 
     const navigate = useNavigate()
@@ -16,8 +18,11 @@ export default function CreateProjectView() {
 
     const { register , handleSubmit , formState: { errors } } = useForm({defaultValues: initialValues })
 
-    const handleForm = async ( data  :  projectFormDataType)  => { 
-        await createProject( data )
+    const handleForm = async ( formData  :  projectFormDataType)  => { 
+        const data = await createProject( formData )
+
+        toast.success(data)
+
         navigate('/')
     }
 

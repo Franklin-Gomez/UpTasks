@@ -6,7 +6,7 @@ export const createProject  = async  ( formData : projectFormDataType ) =>  {
 
         const { data } = await api.post('/projects', formData )
 
-        console.log( data )
+        return  data 
         
     } catch (error) {
         console.log( error )

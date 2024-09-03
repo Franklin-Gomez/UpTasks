@@ -53,3 +53,23 @@ export const getProjectById  = async  ( id : projectType['_id'] ) =>  {
         }
     }
 }
+
+type updateProjectTypes = { 
+    formData : projectFormDataType
+    projectId : projectType['_id']
+}
+
+export const updateProject  = async  ({ formData , projectId } : updateProjectTypes ) =>  {
+    try {
+
+        const { data } = await api.put(`/projects/${projectId}` , formData  )
+        
+        return data
+
+    } catch (error) {
+        
+        if( isAxiosError( error) && error.response) { 
+            throw new Error( error.response.data.error)
+        }
+    }
+}

@@ -8,6 +8,17 @@ export const   projectSchema = z.object({
     description: z.string()
 })
 
+export const dashboardProjectSchema = z.array(
+
+    projectSchema.pick({
+        _id : true,
+        projectName : true,
+        clientName : true,
+        description : true
+    })
+    
+)
+
 // pa la base de datos
 export type projectType = z.infer<typeof projectSchema>
 

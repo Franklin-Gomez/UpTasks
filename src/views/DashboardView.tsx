@@ -13,7 +13,7 @@ export default function DashboardView() {
         return 'cargando...'
     }
 
-    return (
+    if ( data ) return (
 
         <>
             <h1 className="text-5xl font-black">Mis Proyectos</h1>
@@ -27,6 +27,18 @@ export default function DashboardView() {
                 > Nuevo Proyecto </Link>
 
             </nav>
+
+            { data.length ? (
+                <p> Si hay proyectos </p>
+            ) : ( 
+                <p className="text-center py-20"> No hay proyectos aun {''}
+                
+                    <Link
+                        to={'/projects/creat'}
+                        className="text-fuchsia-500 font-bold"
+                    >Crear Proyecto</Link>
+                </p>
+            )}
         </>
     )
 }

@@ -16,3 +16,19 @@ export const createProject  = async  ( formData : projectFormDataType ) =>  {
         }
     }
 }
+
+export const getAllProjects  = async  (  ) =>  {
+    try {
+
+        const { data } = await api.get('/projects' )
+
+        console.log( data )
+        //return  data 
+        
+    } catch (error) {
+        
+        if( isAxiosError( error) && error.response) { 
+            throw new Error( error.response.data.error)
+        }
+    }
+}

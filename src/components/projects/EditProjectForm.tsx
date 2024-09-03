@@ -3,18 +3,20 @@ import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import ProjectForm from "./ProjectForm"
 
-export default function EditProjectForm() {
+type EditProjectForm = { 
+    data : projectFormDataType
+}
 
-    const initialValues : projectFormDataType = { 
-        projectName : "",
-        clientName : "",
-        description : ""
-    }
+export default function EditProjectForm( { data } :  EditProjectForm) {
 
-    const { register , handleSubmit , formState: { errors } } = useForm({defaultValues: initialValues })
+    const { register , handleSubmit , formState: { errors } } = useForm({defaultValues:  {
+        projectName : data.projectName,
+        clientName : data.clientName,
+        description : data.description
+    }})
 
-    const handleForm = ()  => { 
-        
+    const handleForm = ( formData : projectFormDataType)  => { 
+        console.log(formData)
     }
 
     return (

@@ -1,16 +1,9 @@
-import { Link , useNavigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import ProjectForm from "../../components/projects/ProjectForm"
 import { projectFormDataType } from "@/types/index"
-import { createProject } from "@/api/ProjectAPI"
+import { useForm } from "react-hook-form"
+import { Link } from "react-router-dom"
+import ProjectForm from "./ProjectForm"
 
-import { toast } from 'react-toastify'
-
-import { useMutation } from "@tanstack/react-query"
-
-export default function CreateProjectView() {
-
-    const navigate = useNavigate()
+export default function EditProjectForm() {
 
     const initialValues : projectFormDataType = { 
         projectName : "",
@@ -20,30 +13,16 @@ export default function CreateProjectView() {
 
     const { register , handleSubmit , formState: { errors } } = useForm({defaultValues: initialValues })
 
-    const mutation = useMutation({ 
-        mutationFn : createProject,
-
-        onError : ( error ) => { 
-            toast.error( error.message )
-        }, 
-
-        onSuccess : ( data ) => { 
-            toast.success( data )
-            navigate('/')
-        }
-    })
-    
-    const handleForm = ( formData  :  projectFormDataType)  => { 
-        mutation.mutate( formData )
+    const handleForm = ()  => { 
+        
     }
 
     return (
-
         <>  
             <div className="max-w-3xl mx-auto">
                 
-                <h1 className="text-5xl font-black">Crear Proyecto</h1>
-                <p className="text-2xl font-light text-gray-500">Llena el siguiente Formulario para crear un Proyecto </p>
+                <h1 className="text-5xl font-black">Editar Proyecto</h1>
+                <p className="text-2xl font-light text-gray-500">Llena el siguiente Formulario para editar un Proyecto </p>
 
                 <nav className="my-5">
 
@@ -68,9 +47,8 @@ export default function CreateProjectView() {
 
                     <input 
                         type="submit" 
-                        value='Crear Proyecto'
+                        value='Guardar Cambios'
                         className=" bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors "
-
                     />
 
                 </form>

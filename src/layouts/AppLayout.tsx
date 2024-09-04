@@ -17,12 +17,11 @@ export default function AppLayout() {
                     <div className=" w-64">
 
                         <Link to={'/'}>
-                        
+
                             <Logo/>
                         
                         </Link>
                         
-
                     </div>
 
                     <NavMenu/>

@@ -2,7 +2,7 @@ import { projectFormDataType } from "@/types/index"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import ProjectForm from "./ProjectForm"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation , useQueryClient } from "@tanstack/react-query"
 import { updateProject } from "@/api/ProjectAPI"
 import { projectType } from "@/types/index"
 import { toast } from "react-toastify"
@@ -22,6 +22,9 @@ export default function EditProjectForm( { data  , projectId } :  EditProjectFor
         description : data.description
     }})
 
+    // quitar el cacheo automatico - invalidar query
+    const queryClient = useQueryClient()
+
     const { mutate } = useMutation({
 
         mutationFn: updateProject,
@@ -29,7 +32,8 @@ export default function EditProjectForm( { data  , projectId } :  EditProjectFor
             toast.error( error.message)
         },
         onSuccess: ( data ) => { 
-            
+            queryClient.invalidateQueries({queryKey : ['projects']}) // no cashear sino hacer un nuevo query
+            queryClient.invalidateQueries({queryKey : ['editProject', projectId]})
             toast.success( data )
             navigate('/')
 

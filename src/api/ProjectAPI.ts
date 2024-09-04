@@ -62,7 +62,7 @@ type updateProjectTypes = {
 export const updateProject  = async  ({ formData , projectId } : updateProjectTypes ) =>  {
     try {
 
-        const { data } = await api.put(`/projects/${projectId}` , formData  )
+        const { data } = await api.put<string>(`/projects/${projectId}` , formData  )
         
         return data
 

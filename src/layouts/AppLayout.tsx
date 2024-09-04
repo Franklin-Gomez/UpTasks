@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Logo from "@/components/Logo";
 import NavMenu from "@/components/NavMenu";
+import { Link } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,8 +15,13 @@ export default function AppLayout() {
                 <div className=" container max-w-screen-xl mx-auto flex flex-col sm:flex-row justify-between items-center">
                     
                     <div className=" w-64">
+
+                        <Link to={'/'}>
                         
-                        <Logo/>
+                            <Logo/>
+                        
+                        </Link>
+                        
 
                     </div>
 

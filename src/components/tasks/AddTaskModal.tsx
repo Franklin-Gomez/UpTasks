@@ -5,7 +5,7 @@ import TaskForm from './TaskForm';
 import { useForm } from 'react-hook-form';
 import { TaskFormData } from '@/types/index';
 import { createTask } from '@/api/TaskAPI';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation , useQueryClient} from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 export default function AddTaskModal() {
@@ -30,10 +30,13 @@ export default function AddTaskModal() {
 
     const { register , handleSubmit , reset ,formState : { errors }} = useForm({defaultValues : initialValues})
 
+    const queryClient = useQueryClient()
+
     const { mutate } = useMutation({
 
         mutationFn : createTask,
         onSuccess : ( data ) => { 
+            queryClient.invalidateQueries({queryKey : ['editProject', projectId]})
             toast.success( data)
             reset() // resetear el formulario
             navigate('', { replace : true}) // cerrar el modal

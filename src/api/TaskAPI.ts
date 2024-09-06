@@ -62,3 +62,20 @@ export async function updateTask( { projectId, taskId , formData } : Pick <TaskA
         }
     }
 }
+
+export async function deleteTask( { projectId, taskId } : Pick <TaskAPI , 'projectId'  | 'taskId'> ) { 
+
+    try {
+        
+        const url = `http://localhost:4000/api/projects/${projectId}/tasks/${taskId}`;
+
+        const { data } = await api.delete<string>(url)
+
+        return data
+
+    } catch (error) {
+        if( isAxiosError( error ) && error.response ) { 
+            throw new Error( error.response.data.error )
+        }
+    }
+}

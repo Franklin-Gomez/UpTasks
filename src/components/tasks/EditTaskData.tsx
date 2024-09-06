@@ -18,5 +18,5 @@ export default function EditTaskData() {
         enabled : !!taskId // conviernte taskkId en boolean
     })
 
-    if( data ) return <EditTaskModal />
+    if( data ) return <EditTaskModal data={data} />
 }

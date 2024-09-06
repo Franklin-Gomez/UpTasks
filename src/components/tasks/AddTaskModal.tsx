@@ -36,7 +36,7 @@ export default function AddTaskModal() {
 
         mutationFn : createTask,
         onSuccess : ( data ) => { 
-            queryClient.invalidateQueries({queryKey : ['editProject', projectId]})
+            queryClient.invalidateQueries({queryKey : ['project', projectId]})
             toast.success( data)
             reset() // resetear el formulario
             navigate('', { replace : true}) // cerrar el modal

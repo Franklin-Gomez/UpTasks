@@ -7,6 +7,8 @@ import { getTaskById } from '@/api/TaskAPI';
 import { toast } from 'react-toastify';
 
 import { formatDate } from '@/utils/utils';
+import { statusTranslations } from '@/locales/es';
+
 
 export default function TaskModalDetails() {
 
@@ -65,7 +67,7 @@ export default function TaskModalDetails() {
                             >
                                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                                     <p className='text-sm text-slate-400'>Agregada el: { formatDate( data .createdAt)}</p>
-                                    <p className='text-sm text-slate-400'>Última actualización: </p>
+                                    <p className='text-sm text-slate-400'>Última actualización: { formatDate( data.updatedAt)} </p>
                                     
                                     <Dialog.Title
                                         as="h3"
@@ -76,6 +78,16 @@ export default function TaskModalDetails() {
 
                                     <div className='my-5 space-y-3'>
                                         <label className='font-bold'>Estado Actual:</label>
+
+                                        <select
+                                            className='w-full p-3 bg-white border border-gray-300'
+                                            defaultValue={data.status}
+                                        >
+                                            {Object.entries( statusTranslations ).map( ([ key , value ]) => (
+                                                <option key={key} value={key}>{value}</option>
+                                            ))}
+
+                                        </select>
 
                                     </div>
                                     

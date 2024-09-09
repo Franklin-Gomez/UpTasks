@@ -33,6 +33,7 @@ export default function EditTaskModal( { data , taskId } : EditTaskModalProps) {
         },
         onSuccess : ( data ) => { 
             queryclient.invalidateQueries({queryKey : ['project', projectId]})
+            queryclient.invalidateQueries({queryKey : ['task', taskId]})
             toast.success( data)
             reset() // resetear el formulario
             navigate('', { replace : true}) // cerrar el modal

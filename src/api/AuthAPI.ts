@@ -85,3 +85,20 @@ export const forgotPassword  = async ( formData  : ForgotPasswordForm) => {
     }
 
 }
+
+export const validateToken  = async ( formData  : confirmToken) => { 
+
+    try {
+        const url = '/auth/validate-token'
+        
+        const { data } = await api.post<string>( url , formData  ) 
+
+        return data 
+        
+    } catch (error) {
+        if( isAxiosError(error) && error.response  ) { 
+            throw new Error( error.response.data.error )
+        }
+    }
+
+}

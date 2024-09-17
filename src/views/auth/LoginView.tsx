@@ -19,9 +19,9 @@ export default function LoginView() {
 
     mutationFn : AuthenticateUser,
     
-    onSuccess : (data) => { 
+    onSuccess : () => { 
 
-      toast.success( data )
+      toast.success( 'Iniciando Sesion...' )
 
     },
 

@@ -19,7 +19,6 @@ export default function NewPasswordView() {
       { !isValidToken ? 
         // componente para ingresar el token 
         <NewPasswordToken
-
           token={token}
           setToken={setToken}
           setIsValidToken={setIsValidToken}
@@ -34,8 +33,6 @@ export default function NewPasswordView() {
 
         /> 
       }
-
-
     </>
   )
 }

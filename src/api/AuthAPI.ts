@@ -122,3 +122,22 @@ export const updatePasswordWithToken  = async ( { formData , token }  : { formDa
     }
 
 }
+
+export const  getUser =  async () => {
+    
+    const url = '/auth/user'
+
+    try {
+
+        const { data } = await api( url )
+        console.log( data )
+        return data 
+
+    } catch (error) {
+
+        if( isAxiosError(error) && error.response  ) { 
+            throw new Error( error.response.data.error )
+        }
+
+    }
+}

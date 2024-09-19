@@ -16,7 +16,7 @@ export default function AppLayout() {
         return <Navigate to='/auth/login'/>
     }
 
-    return (
+    if ( data ) return (
 
         <>
 
@@ -33,7 +33,9 @@ export default function AppLayout() {
                         
                     </div>
 
-                    <NavMenu/>
+                    <NavMenu
+                        name={data.name}
+                    />
                 </div>
             </header>
 

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getProjectById } from "@/api/ProjectAPI"
 import { useQuery } from "@tanstack/react-query"
 
-import { Navigate } from "react-router-dom"
+import { Navigate , Link } from "react-router-dom"
 import AddTaskModal from "@/components/tasks/AddTaskModal"
 import TaskList from "@/components/tasks/TaskList"
 import EditTaskData from "@/components/tasks/EditTaskData"
@@ -35,6 +35,13 @@ export default function ProjectDetailsViews() {
                     className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
                     onClick={() => navigate('?newTask=true')}
                 >Agregar Tarea</button>
+
+                <Link
+                    to={'team'} // añadi team a la url actual
+                    type="button"
+                    className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
+                    onClick={() => navigate('?newTask=true')}
+                >Ver Team</Link>
             </nav>
 
             <TaskList

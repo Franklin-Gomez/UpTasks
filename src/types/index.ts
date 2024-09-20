@@ -31,7 +31,6 @@ export const userSchema = authSchema.pick({
 
 export type User = z.infer<typeof userSchema>
 
-
 /** Tasks **/
 
 export const taskStatusSchema = z.enum([ "pending" , "onHold" , "inProgress" ,  "underReview" ,  "completed"])
@@ -76,4 +75,18 @@ export type projectType = z.infer<typeof projectSchema>
 
 // para el formulario
 export type projectFormDataType = Pick<projectType , 'projectName' | 'clientName' | 'description' >
+
+/** Team Projects **/
+
+const TeamMemberSchema = userSchema.pick({
+    name : true,
+    email : true , 
+    _id : true
+})
+
+export type TeamMemberType = z.infer< typeof TeamMemberSchema >
+
+export type TeamMemberForm = Pick< TeamMemberType , 'email' >
+
+
 

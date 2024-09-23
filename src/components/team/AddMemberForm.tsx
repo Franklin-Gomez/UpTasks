@@ -29,6 +29,12 @@ export default function AddMemberForm() {
         mutation.mutate( data )
     }
 
+    // resetear el formulario y la mutation
+    const resetData = () => { 
+        reset(),
+        mutation.reset()
+    }
+
     return (
         <>
 
@@ -69,26 +75,27 @@ export default function AddMemberForm() {
             </form>
 
             
-                <div className="mt-10">
-                    {
-                        // mientras nos llega la informacion
-                        mutation.isPending && <p className="text-center">Cargando...</p>
-                    }
+            <div className="mt-10">
+                {
+                    // mientras nos llega la informacion
+                    mutation.isPending && <p className="text-center">Cargando...</p>
+                }
 
-                    {
-                        // si tenemos un error
-                        mutation.error && <p className="text-center">{mutation.error.message}</p>
-                    }
+                {
+                    // si tenemos un error
+                    mutation.error && <p className="text-center">{mutation.error.message}</p>
+                }
 
-                    {   
-                        // Componente con los resultados
-                        mutation.data && <SearchResult user={mutation.data}/>
-                    }
+                {   
+                    // Componente con los resultados
+                    mutation.data && <SearchResult 
+                        user={mutation.data}
+                        resetData={resetData}
+                            
+                    />
+                }
 
-                </div>
-
-
-            
+            </div>
         </>
     )
 }

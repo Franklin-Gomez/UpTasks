@@ -12,7 +12,7 @@ export default function DashboardView() {
 
     const { data : user , isLoading : authLoading } = useAuth();
 
-    const { data , isError , isLoading } = useQuery({ 
+    const { data , isLoading } = useQuery({ 
         queryKey : ['projects'],
         queryFn : getAllProjects
     })
@@ -58,7 +58,7 @@ export default function DashboardView() {
                                 <div className="min-w-0 flex-auto space-y-2">
                                     
                                     <div>
-                                        
+
                                         {
                                             project.manager === user._id ? 
 

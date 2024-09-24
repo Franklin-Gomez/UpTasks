@@ -9,6 +9,7 @@ import EditTaskData from "@/components/tasks/EditTaskData"
 import TaskModalDetails from "@/components/tasks/TaskModalDetail"
 import { useAuth } from "@/hooks/useAuth"
 import { isManager } from "@/utils/policies"
+import { useMemo } from "react"
 
 
 export default function ProjectDetailsViews() {
@@ -20,11 +21,13 @@ export default function ProjectDetailsViews() {
 
     const projectId = params.projectId! //  para evitar undefined "!"
     
-    const { data , isLoading , error , isError} = useQuery({
+    const { data , isLoading , isError} = useQuery({
         queryKey : ['project', projectId],
         queryFn : () =>  getProjectById(projectId),
         retry : false //<-- no intenta la conexion varias veces a la api
     })
+
+    const canEdit = useMemo( () => data?.manager == user?._id , [ data , user ] )
 
     if( isLoading && authLoading ) return 'Cargando...'
     if( isError ) return <Navigate to='/404' />
@@ -52,9 +55,9 @@ export default function ProjectDetailsViews() {
             )}
 
 
-
             <TaskList
-                tasks={data.tasks}            
+                tasks={data.tasks} 
+                canEdit={canEdit}          
             />
             
             <AddTaskModal/>

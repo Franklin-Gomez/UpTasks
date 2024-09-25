@@ -11,6 +11,7 @@ import { statusTranslations } from '@/locales/es';
 import { taskStatusType } from '@/types/index';
 
 
+
 export default function TaskModalDetails() {
 
     const params = useParams()
@@ -98,17 +99,22 @@ export default function TaskModalDetails() {
 
                                     <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description }</p>
 
-                                    { data.completedBy && (
+                                    <p className='text-2xl text-slate-500 mb-2'>Historial de Cambios</p>
 
-                                        <p>
-                                            
-                                            <span className='font-bold text-slate-600'> Estado actualizado por : </span> {' '}
+                                    <ul className='list-decimal'>
+                                        { data.completedBy.map( ( activityLog )  => (
 
-                                            { data.completedBy.name }
+                                            <li key={activityLog._id}>
 
-                                        </p>
-                                    
-                                    )}
+                                                <span className='font-bold text-slate-600'> { statusTranslations[activityLog.status] } : </span> {' '} 
+                                                
+                                                por : { activityLog.user.name }
+
+                                            </li>
+                                        
+                                        ))}
+
+                                    </ul>
 
                                     <div className='my-5 space-y-3'>
                                         <label className='font-bold'>Estado Actual:</label>

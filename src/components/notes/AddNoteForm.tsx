@@ -1,6 +1,10 @@
 import { NoteFormData } from "@/types/index"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "../ErrorMessage"
+import { useMutation } from "@tanstack/react-query"
+import { createNote } from "@/api/NotaAPI"
+import { toast } from "react-toastify"
+import { useLocation, useParams } from "react-router-dom"
 
 export default function AddNoteForm() {
 
@@ -8,10 +12,28 @@ export default function AddNoteForm() {
         content : ''
     }
 
-    const { register , handleSubmit , formState  : { errors }} = useForm({ defaultValues : initialValues})
+    const params = useParams()
+    const location = useLocation()
+    const queryParams = new URLSearchParams( location.search )
+
+    const projectId = params.projectId!
+    const taskId = queryParams.get('viewTask')!
+
+    const { register , handleSubmit , reset ,  formState  : { errors }} = useForm({ defaultValues : initialValues})
+
+    const { mutate } = useMutation({
+        mutationFn : createNote,
+        onSuccess : ( data ) => { 
+            toast.success( data )
+            reset()
+        },
+        onError : ( error ) => { 
+            toast.error( error.message )
+        }
+    })
 
     const handleAddNote = ( formData : NoteFormData ) => { 
-        console.log( formData )
+        mutate( { formData , projectId , taskId})
     }
 
     return (

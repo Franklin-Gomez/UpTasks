@@ -20,18 +20,6 @@ export default function DashboardView() {
         queryFn : getAllProjects
     })
 
-    const queryClient = useQueryClient()
-    const { mutate } = useMutation({
-        mutationFn: deleteProject,
-        onError: ( error ) => { 
-            toast.error(error.message)
-        },
-        onSuccess : ( data ) => {
-            toast.success( data )
-            queryClient.invalidateQueries({ queryKey : ['projects']})
-        }
-    })
-
     
     if( isLoading && authLoading ) { 
         return 'cargando...'

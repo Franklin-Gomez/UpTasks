@@ -13,12 +13,15 @@ export default function ChangePasswordView() {
         password_confirmation: ''
     }
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: initialValues })
+    const { register, handleSubmit, watch, formState: { errors } , reset } = useForm({ defaultValues: initialValues })
 
     const { mutate } = useMutation({ 
         mutationFn : changePassword,
         onError: ( error ) => toast.error( error.message ),
-        onSuccess : ( data ) => toast.success ( data)
+        onSuccess : ( data ) => { 
+            toast.success ( data)
+            reset()
+        }
     })
 
     // revisa que ambas password sean iguales

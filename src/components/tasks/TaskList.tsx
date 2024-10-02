@@ -69,7 +69,30 @@ export default function TaskList( { tasks , canEdit } : TaskListPropsType) {
             const taskId = active.id.toString()
             const status = over.id as taskStatusType
 
-            mutate( { taskId , status , projectId }  )
+            mutate( { taskId , status , projectId } )
+
+            // haciendo el cambio de status  antes de la respuesta del servidor
+            queryClient.setQueryData( ['project', projectId] , ( prevData ) => {
+                const updatedTasks = prevData.tasks.map( ( task : TaskType ) => { 
+                    // identificamos el elemento agarrado
+                    if( task._id == taskId) { 
+                        // retornamos el elemento con el cambio de status
+                        return {
+                            ...task,
+                            status
+                        }
+                    }
+                    // no perder referencia de los elementos que no seleccionamos
+                    return task
+                })
+
+                // seteamos los otros datos y el nuevo arreglo de tareas
+                return { 
+                    ...prevData,
+                    tasks : updatedTasks
+                }
+
+            })
         }
     }
 

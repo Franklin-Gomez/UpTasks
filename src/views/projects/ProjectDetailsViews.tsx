@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { getProjectById } from "@/api/ProjectAPI"
+import { getFullProject } from "@/api/ProjectAPI"
 import { useQuery } from "@tanstack/react-query"
 
 import { Navigate , Link } from "react-router-dom"
@@ -23,7 +23,7 @@ export default function ProjectDetailsViews() {
     
     const { data , isLoading , isError} = useQuery({
         queryKey : ['project', projectId],
-        queryFn : () =>  getProjectById(projectId),
+        queryFn : () =>  getFullProject(projectId),
         retry : false //<-- no intenta la conexion varias veces a la api
     })
 

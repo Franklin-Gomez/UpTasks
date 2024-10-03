@@ -1,4 +1,4 @@
-import { taskStatusType, TaskType } from "@/types/index";
+import { projectType, TaskProject, taskStatusType } from "@/types/index";
 import TaskCard from "./TaskCard";
 import { statusTranslations } from "@/locales/es";
 import DropTask from "./DropTask";
@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 type TaskListPropsType = { 
-    tasks : TaskType[]
+    tasks : TaskProject[]
     canEdit: boolean
 }
 
 type GroupedTasks = { 
-    [key : string ] : TaskType[]
+    [key : string ] : TaskProject[]
 }
 
 const  TaskListProps : GroupedTasks = { 
@@ -72,8 +72,8 @@ export default function TaskList( { tasks , canEdit } : TaskListPropsType) {
             mutate( { taskId , status , projectId } )
 
             // haciendo el cambio de status  antes de la respuesta del servidor
-            queryClient.setQueryData( ['project', projectId] , ( prevData ) => {
-                const updatedTasks = prevData.tasks.map( ( task : TaskType ) => { 
+            queryClient.setQueryData( ['project', projectId] , ( prevData : projectType ) => {
+                const updatedTasks = prevData.tasks.map( ( task  ) => { 
                     // identificamos el elemento agarrado
                     if( task._id == taskId) { 
                         // retornamos el elemento con el cambio de status

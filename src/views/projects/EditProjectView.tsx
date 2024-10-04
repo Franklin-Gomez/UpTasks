@@ -9,7 +9,7 @@ export default function EditProjectView() {
 
     const projectId = params.projectId! //  para evitar undefined "!"
     
-    const { data , isLoading , error , isError} = useQuery({
+    const { data , isLoading  , isError} = useQuery({
         queryKey : ['editProject', projectId],
         queryFn : () =>  getProjectById(projectId),
         retry : false //<-- no intenta la conexion varias veces a la api

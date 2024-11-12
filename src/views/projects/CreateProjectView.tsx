@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import ProjectForm from "../../components/projects/ProjectForm"
 
 export default function CreateProjectView() {
     return (
@@ -18,13 +19,16 @@ export default function CreateProjectView() {
                     </Link>
                 </nav>
 
-            </div>
+                <form action="" className="bg-white mt-4">
 
-            <form action="" method="POST">
+                    <ProjectForm/>
 
+                </form>
                 
 
-            </form>
+            </div>
+
+
         </>
     )
 }

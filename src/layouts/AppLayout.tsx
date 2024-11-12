@@ -5,7 +5,7 @@ import NavMenu from "../components/NavMenu"
 export default function AppLayout() {
     return (
 
-        <div>
+        <div className="bg-gray-200">
 
             <header className="py-5 bg-gray-800">
 
@@ -32,7 +32,7 @@ export default function AppLayout() {
             </header>
 
 
-            <section className="py-5 mx-auto container px-20">
+            <section className="py-5 mx-auto container px-20 ">
 
                 <Outlet/>
 

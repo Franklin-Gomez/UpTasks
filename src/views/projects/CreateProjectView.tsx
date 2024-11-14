@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom"
 import ProjectForm from "../../components/projects/ProjectForm"
 import { useForm } from "react-hook-form"
+import { projectFormDataType } from "../../types"
+import { useQuery , useMutation } from "@tanstack/react-query"
+import { createProject } from "../../api/Project"
+import { toast } from "react-toastify"
 
 export default function CreateProjectView() {
 
@@ -10,9 +14,29 @@ export default function CreateProjectView() {
         description : ""
     }
 
-    const { register , formState : { errors }  } = useForm( { defaultValues : initialValue} )
+    const { register , handleSubmit ,  formState : { errors }  } = useForm( { defaultValues : initialValue} )
 
-    
+    const mutation = useMutation({
+
+        mutationFn : createProject,
+
+        onSuccess : () => { 
+            toast.success('Creado Correctamente')
+        },
+
+        onError : (error) => { 
+            toast.error( error.message )
+        }
+            
+    })
+
+    const formSubmit = (   formData  : projectFormDataType  ) =>  { 
+        
+        mutation.mutate( formData )
+
+    }
+
+
     return (
         <>
             <div className="mx-auto max-w-3xl grid gap-2 ">
@@ -30,7 +54,7 @@ export default function CreateProjectView() {
                     </Link>
                 </nav>
 
-                <form action="" className="mt-4 bg-white rounded-xl p-6">
+                <form onSubmit={handleSubmit( formSubmit )} className="mt-4 bg-white rounded-xl p-6">
 
                     <ProjectForm
                         errors={errors}

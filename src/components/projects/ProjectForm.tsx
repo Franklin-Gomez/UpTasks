@@ -1,9 +1,10 @@
-import { projectFormType } from "../../types"
+import { projectFormDataType, projectFormType } from "../../types"
 import { FieldErrors , UseFormRegister} from "react-hook-form"
+import ErrorMessage from "../ErrorMessage"
 
 type ProjectFormProps = { 
-    errors :  FieldErrors<projectFormType>
-    register : UseFormRegister<projectFormType>
+    errors :  FieldErrors<projectFormDataType>
+    register : UseFormRegister<projectFormDataType>
 }
 
 export default function ProjectForm( { errors , register } : ProjectFormProps) {
@@ -24,6 +25,12 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
                             required : "El Nombre del Proyecto es Obligatorio"
                         })}   
                     />
+                    
+                    {errors.proyectName?.message  && 
+                        <ErrorMessage>
+                            {errors.proyectName.message}
+                        </ErrorMessage>
+                    }
 
                 </div>
 
@@ -38,6 +45,13 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
                             required : "El Nombre del Cliente es obligatorio"
                         })}
                     />
+
+                    {errors.clientName?.message  && 
+                        <ErrorMessage>
+                            {errors.clientName.message}
+                        </ErrorMessage>
+                    }
+
                 </div>
 
                 <div className="flex flex-col">
@@ -50,6 +64,13 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
                             required : "La Descripcion del proyecto es obligatorio"
                         })}
                     />
+
+                    {errors.description?.message  && 
+                        <ErrorMessage>
+                            {errors.description.message}
+                        </ErrorMessage>
+                    }
+
                 </div>
 
             </div>

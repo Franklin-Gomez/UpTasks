@@ -19,10 +19,8 @@ export default function Router() {
         </Route>
 
       </Routes>
-
     
     </BrowserRouter>
-
 
   )
 }

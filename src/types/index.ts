@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const projectSchema = z.object({
     _id : z.string(),
-    proyectName : z.string(),
+    projectName : z.string(),
     clientName : z.string(),
     description : z.string()
 })
@@ -11,4 +11,4 @@ export const projectSchema = z.object({
 export type projectFormType = z.infer<typeof projectSchema>;
 
 // type pa la base del formulario
-export type projectFormDataType = Pick <projectFormType , "proyectName" | "clientName" | "description">
+export type projectFormDataType = Pick <projectFormType , "projectName" | "clientName" | "description">

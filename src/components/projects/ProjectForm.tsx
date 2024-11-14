@@ -1,4 +1,4 @@
-import { projectFormDataType, projectFormType } from "../../types"
+import { projectFormDataType } from "../../types"
 import { FieldErrors , UseFormRegister} from "react-hook-form"
 import ErrorMessage from "../ErrorMessage"
 
@@ -15,20 +15,20 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
             <div className="bg-white  grid gap-6 ">
 
                 <div className="flex flex-col">
-                    <label htmlFor="proyectName" className="font-bold text-lg uppercase"> Nombre del Proyecto </label>
+                    <label htmlFor="projectName" className="font-bold text-lg uppercase"> Nombre del Proyecto </label>
                     <input 
                         type="text" 
-                        id="proyectName" 
+                        id="projectName" 
                         placeholder="Nombre del Proyecto" 
                         className="border border-gray-200 rounded-xl p-3 mt-1" 
-                        {...register("proyectName" , {
+                        {...register("projectName" , {
                             required : "El Nombre del Proyecto es Obligatorio"
                         })}   
                     />
                     
-                    {errors.proyectName?.message  && 
+                    {errors.projectName?.message  && 
                         <ErrorMessage>
-                            {errors.proyectName.message}
+                            {errors.projectName.message}
                         </ErrorMessage>
                     }
 

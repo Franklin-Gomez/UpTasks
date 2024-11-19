@@ -1,13 +1,14 @@
-import { projectFormDataType } from "../../types"
+import { projectFormDataType, projectType } from "../../types"
 import { FieldErrors , UseFormRegister} from "react-hook-form"
 import ErrorMessage from "../ErrorMessage"
 
 type ProjectFormProps = { 
     errors :  FieldErrors<projectFormDataType>
     register : UseFormRegister<projectFormDataType>
+    data? : projectType
 }
 
-export default function ProjectForm( { errors , register } : ProjectFormProps) {
+export default function ProjectForm( { errors , register , data } : ProjectFormProps) {
 
 
     return (
@@ -20,7 +21,8 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
                         type="text" 
                         id="projectName" 
                         placeholder="Nombre del Proyecto" 
-                        className="border border-gray-200 rounded-xl p-3 mt-1" 
+                        className="border border-gray-200 rounded-xl p-3 mt-1"
+                        defaultValue={data?.projectName}
                         {...register("projectName" , {
                             required : "El Nombre del Proyecto es Obligatorio"
                         })}   
@@ -41,6 +43,7 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
                         id="clientName" 
                         placeholder="Nombre del Cliente" 
                         className="border border-gray-200 rounded-xl p-3 mt-1"
+                        defaultValue={data?.clientName}
                         {...register("clientName" , { 
                             required : "El Nombre del Cliente es obligatorio"
                         })}
@@ -60,10 +63,11 @@ export default function ProjectForm( { errors , register } : ProjectFormProps) {
                         id="description" 
                         placeholder="Descripcion del Proyecto" 
                         className="border border-gray-200 rounded-xl p-3 mt-1 h-16 w-full resize-none"
+                        defaultValue={data?.description}
                         { ...register("description" , { 
                             required : "La Descripcion del proyecto es obligatorio"
                         })}
-                    />
+                    />  
 
                     {errors.description?.message  && 
                         <ErrorMessage>

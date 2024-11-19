@@ -15,10 +15,14 @@ export default function EditProjectView() {
 
     })
 
+    console.log( data )
     
-    if (data ) return (
+    if ( data ) return (
 
-        <EditProjectForm/>
+        <EditProjectForm
+            data={data}
+            projectId={id}
+        />
 
     ) 
 }

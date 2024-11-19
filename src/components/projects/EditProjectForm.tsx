@@ -1,11 +1,49 @@
-import { Link } from "react-router-dom"
+import { Link, redirect } from "react-router-dom"
 import ProjectForm from "./ProjectForm"
 import { useForm } from "react-hook-form"
-import { projectFormDataType } from "../../types"
+import { projectFormDataType, projectType } from "../../types"
+import { updateProject } from "../../api/Project"
+import { useMutation } from "@tanstack/react-query"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
-export default function EditProjectForm() {
+type EditProjectFormType = { 
+    data : projectType
+    projectId : projectType['_id']
+}
 
-    const { register, formState : { errors } } = useForm<projectFormDataType>()
+export default function EditProjectForm( { data , projectId  } : EditProjectFormType ) {
+
+
+    const { register, formState : { errors } , handleSubmit } = useForm<projectFormDataType>()
+
+    const navigate = useNavigate()
+
+    const mutation = useMutation({
+
+        mutationFn :  updateProject,
+
+        onSuccess : () => {  
+            toast.success('Projecto Actualizado Correctamente')
+            navigate("/")
+        } , 
+
+        onError : (errors) => { 
+            toast.error(errors.message)
+        }
+
+    })
+
+    const submitForm = async ( formdata : projectFormDataType  ) => { 
+
+        const data = { 
+            formdata,
+            projectId
+        }
+
+        mutation.mutate(  data  )
+
+    }
 
     return (
         <div className="mx-auto max-w-3xl grid gap-2 ">
@@ -21,13 +59,14 @@ export default function EditProjectForm() {
             </Link>
         </nav>
 
-        <form className="mt-4 bg-white rounded-xl p-6">
+        <form  onSubmit={ handleSubmit( submitForm ) }className="mt-4 bg-white rounded-xl p-6">
 
             <ProjectForm
                 errors={errors}
                 register={register}
+                data={data}
             />
-
+ 
             <input 
                 type="submit" 
                 value="Guardar Cambios" 

@@ -38,9 +38,13 @@ export async function getOneProject( id : projectType['_id'] ) {
 
 }
 
-export async function updateProject( id : projectType['_id'] ) {
+export async function updateProject(  { formdata , projectId }  : { formdata  :  projectFormDataType , projectId : projectType['_id'] }  ) {
 
-
+    const resultado = await axios.put( `${import.meta.env.VITE_API_URL}/projects/${projectId }`, formdata )
+    
+    if( resultado.status == 200 ) { 
+        return resultado.data
+    }
     
 }
 

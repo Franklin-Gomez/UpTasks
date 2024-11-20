@@ -1,22 +1,35 @@
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Link } from "react-router-dom"
-import { getAllProject } from "../api/Project"
+import { deleteProject, getAllProject } from "../api/Project"
 
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import { toast } from "react-toastify"
 
 export default function DashboardViews() {
 
-    const { data , isLoading } = useQuery({
+    const queryClient = useQueryClient()
 
+    const { data , isLoading } = useQuery({
         queryKey:['AllProject'],
         queryFn : getAllProject
+    })
 
+    const mutation = useMutation({ 
+        mutationFn : deleteProject , 
+
+        onSuccess : () => { 
+            toast.success('Proyecto Eliminado Correctamente')
+            queryClient.invalidateQueries({ queryKey : ['AllProject']})
+        } , 
+
+        onError : ( error ) => { 
+            toast.error( error.message )
+        }
     })
 
     
-
     if( data ) return (
         <>
             <div className=" grid gap-3">
@@ -73,29 +86,29 @@ export default function DashboardViews() {
                                     <Menu.Items
                                         className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                                     >
-                                            <Menu.Item>
-                                                <Link to={``}
-                                                    className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                                Ver Proyecto
-                                                </Link>
-                                            </Menu.Item>
+                                        <Menu.Item>
+                                            <Link to={``}
+                                                className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                                            Ver Proyecto
+                                            </Link>
+                                        </Menu.Item>
 
-                                            <Menu.Item>
-                                                <Link to={`/projects/${project._id}/editProject`}
-                                                    className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                                        <Menu.Item>
+                                            <Link to={`/projects/${project._id}/editProject`}
+                                                className='block px-3 py-1 text-sm leading-6 text-gray-900'>
                                                 Editar Proyecto
-                                                </Link>
-                                            </Menu.Item>
+                                            </Link>
+                                        </Menu.Item>
 
-                                            <Menu.Item>
-                                                <button 
-                                                    type='button' 
-                                                    className='block px-3 py-1 text-sm leading-6 text-red-500'
-                                                    onClick={() => {} }
-                                                >
-                                                    Eliminar Proyecto
-                                                </button>
-                                            </Menu.Item>
+                                        <Menu.Item>
+                                            <button 
+                                                type='button' 
+                                                className='block px-3 py-1 text-sm leading-6 text-red-500'
+                                                onClick={() => mutation.mutate(project._id) }
+                                            >
+                                                Eliminar Proyecto
+                                            </button>
+                                        </Menu.Item>
 
                                     </Menu.Items>
                                 </Transition>

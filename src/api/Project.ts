@@ -45,6 +45,15 @@ export async function updateProject(  { formdata , projectId }  : { formdata  : 
     if( resultado.status == 200 ) { 
         return resultado.data
     }
-    
+        
+}
+
+export async function deleteProject( id : projectType['_id']) { 
+
+    const resultado = await axios.delete(`${import.meta.env.VITE_API_URL}/projects/${id}`)
+
+    if( resultado.status == 200 ) { 
+        return resultado.data
+    }
 }
 

@@ -9,7 +9,7 @@ export default function AppLayout() {
     return (
 
         <>
-            <div className="bg-gray-200">
+            <div className="bg-gray-200 h-screen">
 
                 <header className="py-5 bg-gray-800">
 

@@ -16,7 +16,11 @@ export async function getAllProject() {
 
     const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`)
 
+    console.log( resultado.data )
+
     const validacion = projectsSchema.safeParse( resultado.data )
+
+    console.log( validacion )
 
     if( validacion.success) { 
         return validacion.data
@@ -36,6 +40,19 @@ export async function getOneProject( id : projectType['_id'] ) {
 
     }
 
+}
+
+export async function getFullProject( id : projectType['_id']){
+
+    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${id}`)
+
+    const validacion = projectSchema.safeParse( resultado.data )
+
+    if( validacion.success ) { 
+
+        return validacion.data
+        
+    }
 }
 
 export async function updateProject(  { formdata , projectId }  : { formdata  :  projectFormDataType , projectId : projectType['_id'] }  ) {

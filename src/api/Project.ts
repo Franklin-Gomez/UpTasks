@@ -16,11 +16,7 @@ export async function getAllProject() {
 
     const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`)
 
-    console.log( resultado.data )
-
     const validacion = projectsSchema.safeParse( resultado.data )
-
-    console.log( validacion )
 
     if( validacion.success) { 
         return validacion.data

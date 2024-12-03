@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import TaskList from "../../components/task/TaskList";
 import { getFullProject } from "../../api/Project";
+import AddTaskModal from "../../components/task/AddTaskModal";
 
 
 export default function ProjectDetailView() {
@@ -26,19 +27,22 @@ export default function ProjectDetailView() {
                 <p className="text-gray-500 font-light text-3xl">  </p>
 
                 <nav className="my-2 flex gap-2">
+
+                    <Link
+                        to={'/'}
+                        className="bg-purple-400 text-white px-4 py-2 font-bold text-2xl hover:bg-purple-700 cursor-pointer"
+                    >
+                        Inicio
+                    </Link>
+
                     <button
                         className="bg-purple-400 text-white px-4 py-2 font-bold text-2xl hover:bg-purple-700 cursor-pointer"
                         onClick={() => navigate('?newTask=true')}
                     >
-                        Volver al Inicio
+                        Crear Tarea
                     </button>
 
-                    <Link
-                        to={`/projects/${projectId}/`}
-                        className="bg-purple-400 text-white px-4 py-2 font-bold text-2xl hover:bg-purple-700 cursor-pointer"
-                    >
-                        Crear Tarea
-                    </Link>
+
                 </nav>
 
             </div>
@@ -46,6 +50,8 @@ export default function ProjectDetailView() {
             <TaskList
                 tasks={data.tasks}
             />
+
+            <AddTaskModal/>
             
         </>
     )

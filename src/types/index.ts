@@ -19,6 +19,7 @@ export const tasksSchema = TaskSchema.pick({
 })
 
 export type taskType = z.infer<typeof tasksSchema>
+export type taskFormType = Pick<taskType , "name" | "description">
 
 
 // ProjectSchema

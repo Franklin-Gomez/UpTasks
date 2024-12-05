@@ -1,4 +1,5 @@
 import axios from "axios"
+import { taskType } from "../types"
 
 type TaskApiType = { 
     projectId? : string
@@ -52,6 +53,14 @@ export const updateTask = async ( { taskId , formdata , projectId  } : TaskApiTy
 
 }
 
-export const deleteTask = async () => { 
+export const deleteTask = async ( { taskId  , projectId } : TaskApiType) => { 
+
+    const resultado = await axios.delete(`${import.meta.env.VITE_API_URL}/projects/${projectId}/task/${taskId}`)
+
+    if( resultado.status == 200 ) { 
+
+        return resultado.data
+
+    }
 
 }

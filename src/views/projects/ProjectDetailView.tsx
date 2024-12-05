@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import TaskList from "../../components/task/TaskList";
 import { getFullProject } from "../../api/Project";
 import AddTaskModal from "../../components/task/AddTaskModal";
+import EditTaskModal from "../../components/task/EditTaskModal";
 
 
 export default function ProjectDetailView() {
@@ -52,6 +53,8 @@ export default function ProjectDetailView() {
             />
 
             <AddTaskModal/>
+
+            <EditTaskModal/>
             
         </>
     )

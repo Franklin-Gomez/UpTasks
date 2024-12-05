@@ -3,12 +3,12 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import TaskForm from './TaskForm';
 import { useForm } from 'react-hook-form';
-import { taskFormType } from '../../types';
-import { useMutation , useQueryClient } from '@tanstack/react-query';
-import { createTask } from '../../api/Task';
+import { taskFormType, taskType } from '../../types';
+import { useMutation , useQuery, useQueryClient } from '@tanstack/react-query';
+import { getOneTask, updateTask } from '../../api/Task';
 import { toast } from 'react-toastify';
 
-export default function AddTaskModal() {
+export default function EditTaskModal() {
 
     // cerrar modal
     const navigate = useNavigate()
@@ -17,26 +17,39 @@ export default function AddTaskModal() {
     const location = useLocation()
     const query = location.search
     const params = new URLSearchParams( query )
-    const openClose = params.get("newTask") ? true : false
-
+    
+    const openClose = params.get("editTask") ? true : false
+    
+    
     const validate = useParams()
     const projectId = validate.projectId!
 
+    const taskId = params.get("editTask")!
+
+
     // form 
-    const { register , formState : { errors } , handleSubmit  } = useForm<taskFormType>()
+    const { register , formState : { errors } , handleSubmit , reset  } = useForm<taskFormType>()
     
     // invalidar query
     const queryClient = useQueryClient()
 
-    // query  = crear tareas
+    // query = traernos la informacion de la tarea a editar
+    const { data }   = useQuery({
+        queryKey : ['taskEdit' , taskId ],
+        queryFn : () => getOneTask({ projectId , taskId })
+    })
+    
+
+    // useMutation  = update Task
     const mutation = useMutation({
 
-        mutationFn : createTask,
+        mutationFn : updateTask,
 
         onSuccess : () => { 
             queryClient.invalidateQueries({ queryKey : [ "project" ]})
-            navigate( location.pathname , { replace: true  })
-            toast.success("Tarea creada satisfactoriamente")
+            toast.success("Tarea actualizada correctamente")
+            navigate( location.pathname , { replace: true  }) 
+            reset()
         }, 
 
         onError :  ( error ) => { 
@@ -50,17 +63,18 @@ export default function AddTaskModal() {
 
         const data  = {
             formdata : formdata, 
-            projectId
+            projectId,
+            taskId
         }
         
         mutation.mutate( data )
 
     }
 
-    return (
+    if( data ) return (
         <>
             <Transition appear show={openClose} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => navigate( location.pathname , { replace: true  }) }>
+                <Dialog as="div" className="relative z-10" onClose={() => navigate( location.pathname , { replace: true }) }>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -102,11 +116,12 @@ export default function AddTaskModal() {
                                 <TaskForm
                                     errors={errors}
                                     register={register}
+                                    data={data}
                                 />
 
                                 <input 
                                     type="submit" 
-                                    value="Crear Nota" 
+                                    value="Guardar Cambios" 
                                     className="bg-purple-400 text-white py-4 font-bold text-2xl hover:bg-purple-700 cursor-pointer w-full rounded-xl mt-6"    
                                 />
 

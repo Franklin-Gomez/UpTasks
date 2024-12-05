@@ -1,16 +1,16 @@
-import { projectFormDataType, projectType, taskFormType } from "../../types"
-import { FieldErrors , useForm, UseFormRegister} from "react-hook-form"
+import { taskFormType, taskType } from "../../types"
+import { FieldErrors , UseFormRegister} from "react-hook-form"
 import ErrorMessage from "../ErrorMessage"
 
 type TaskFormProps = { 
     register : UseFormRegister<taskFormType>
     errors: FieldErrors<taskFormType>
+    data? : taskType
 }
 
-export default function TaskForm( { register , errors } : TaskFormProps) {
+export default function TaskForm( { register , errors , data  } : TaskFormProps) {
 
     
-
     return (
         <>
             <div className="bg-white  grid gap-6 ">
@@ -22,7 +22,7 @@ export default function TaskForm( { register , errors } : TaskFormProps) {
                         id="name" 
                         placeholder="Nombre del Proyecto" 
                         className="border border-gray-200 rounded-xl p-3 mt-1"
-                        //defaultValue={data?.projectName}
+                        defaultValue={data?.name}
                         {...register("name" , {
                             required : "El Nombre de la Nota es obligatorio"
                         })}   
@@ -43,7 +43,7 @@ export default function TaskForm( { register , errors } : TaskFormProps) {
                         id="description" 
                         placeholder="Nombre del Cliente" 
                         className="border border-gray-200 rounded-xl p-3 mt-1"
-                        //defaultValue={data?.clientName}
+                        defaultValue={data?.description}
                         {...register("description" , { 
                             required : "La Descripcion de la Tarea es Obligatorio"
                         })}

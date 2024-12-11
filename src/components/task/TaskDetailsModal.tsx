@@ -7,6 +7,7 @@ import { getOneTask, updateStatusTask } from '../../api/Task';
 import { statusTranslations } from './TaskList';
 import { toast } from 'react-toastify';
 import { taskStatusType } from '../../types';
+import NotesPanel from '../notes/NotesPanel';
 
 export default function TaskModalDetails() {
     // cerrar modal
@@ -40,6 +41,9 @@ export default function TaskModalDetails() {
 
         onSuccess : () => { 
             toast.success('Status Actualizado Correctamente')
+            navigate( location.pathname , { replace: true }) 
+            queryClient.invalidateQueries({queryKey : ["project" , projectId]})
+            queryClient.invalidateQueries({queryKey : ["task" , taskId ]})
         },
 
         onError : ( error ) => { 
@@ -112,6 +116,9 @@ export default function TaskModalDetails() {
                                         </select>
 
                                     </div>
+
+                                    <NotesPanel/>
+                                    
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

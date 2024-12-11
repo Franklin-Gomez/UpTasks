@@ -1,15 +1,17 @@
 import axios from "axios"
-import { taskType } from "../types"
+import { tasksSchema, taskStatusType, taskType } from "../types"
 
 type TaskApiType = { 
     projectId? : string
     formdata? : object
     taskId? : string
+    status? : taskStatusType
 }
 
 export const createTask = async ( { projectId , formdata } :  TaskApiType ) => { 
 
     const resultado = await axios.post( `${import.meta.env.VITE_API_URL}/projects/${projectId}/task` , formdata )
+
 
     if( resultado.status == 200 ) { 
         return resultado.data
@@ -33,9 +35,11 @@ export const getOneTask = async ( { taskId , projectId } : TaskApiType ) => {
     
     const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${projectId}/task/${taskId}`)
 
-    if( resultado.status == 200 ) { 
+    const validacion = tasksSchema.safeParse( resultado.data)
+    
+    if( validacion.success ) { 
 
-        return resultado.data
+        return validacion.data
 
     }
     
@@ -63,4 +67,16 @@ export const deleteTask = async ( { taskId  , projectId } : TaskApiType) => {
 
     }
 
+}
+
+export const updateStatusTask = async ( { projectId , taskId , status } : TaskApiType) => { 
+
+    const resultado = await axios.post(`${import.meta.env.VITE_API_URL}/projects/${projectId}/task/${taskId}/status` , { status })
+
+
+    if( resultado.status == 200 ) { 
+
+        return resultado.data
+
+    }
 }

@@ -4,6 +4,7 @@ import TaskList from "../../components/task/TaskList";
 import { getFullProject } from "../../api/Project";
 import AddTaskModal from "../../components/task/AddTaskModal";
 import EditTaskModal from "../../components/task/EditTaskModal";
+import TaskModalDetails from "../../components/task/TaskDetailsModal";
 
 
 export default function ProjectDetailView() {
@@ -55,6 +56,8 @@ export default function ProjectDetailView() {
             <AddTaskModal/>
 
             <EditTaskModal/>
+
+            <TaskModalDetails/>
             
         </>
     )

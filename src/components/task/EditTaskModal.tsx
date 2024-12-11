@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { redirect, useLocation, useNavigate, useParams } from 'react-router-dom';
 import TaskForm from './TaskForm';
 import { useForm } from 'react-hook-form';
 import { taskFormType, taskType } from '../../types';
@@ -26,6 +26,12 @@ export default function EditTaskModal() {
 
     const taskId = params.get("editTask")!
 
+    // query = traernos la informacion de la tarea a editar
+    const { data }   = useQuery({
+        queryKey : ['taskEdit' , taskId ],
+        queryFn : () => getOneTask({ projectId , taskId }),
+        enabled : !!taskId // enable :  controla cuando se reali
+    })
 
     // form 
     const { register , formState : { errors } , handleSubmit , reset  } = useForm<taskFormType>()
@@ -33,12 +39,6 @@ export default function EditTaskModal() {
     // invalidar query
     const queryClient = useQueryClient()
 
-    // query = traernos la informacion de la tarea a editar
-    const { data }   = useQuery({
-        queryKey : ['taskEdit' , taskId ],
-        queryFn : () => getOneTask({ projectId , taskId })
-    })
-    
 
     // useMutation  = update Task
     const mutation = useMutation({

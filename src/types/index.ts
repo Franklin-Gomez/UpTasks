@@ -18,9 +18,11 @@ export const tasksSchema = TaskSchema.pick({
     status : true
 })
 
+export const taskstatusSchema = z.enum(["pending", "onHold" , "inProgress" ,  "underReview" ,  "completed"])
+
 export type taskType = z.infer<typeof tasksSchema>
 export type taskFormType = Pick<taskType , "name" | "description">
-
+export type taskStatusType = z.infer<typeof taskstatusSchema>
 
 // ProjectSchema
 export const projectSchema = z.object({

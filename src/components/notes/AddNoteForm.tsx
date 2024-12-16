@@ -6,14 +6,16 @@ export default function AddNoteForm() {
     // form 
     const { register , formState : { errors } , handleSubmit  } = useForm()
 
-    const handleAddNote = () => { 
+    const handleCreateNote = () => { 
 
     }
 
     return (
+        
         <div>
             
-            <form onSubmit={ handleSubmit( handleAddNote )}>
+            <form onSubmit={ handleSubmit( handleCreateNote )}>
+
                 <div className="grid py-2 gap-2">
 
                     <label htmlFor="nota" className="font-bold">Crear Nota : </label>
@@ -23,7 +25,6 @@ export default function AddNoteForm() {
                     })}/>
 
                     { errors.nota && <ErrorMessage>{errors.nota.message?.toString()}</ErrorMessage> }
-
 
                 </div>
 

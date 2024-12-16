@@ -1,5 +1,5 @@
 import axios from "axios"
-import { tasksSchema, taskStatusType, taskType } from "../types"
+import { tasksNoteSchema, tasksSchema, taskStatusType, taskType } from "../types"
 
 type TaskApiType = { 
     projectId? : string
@@ -12,7 +12,6 @@ export const createTask = async ( { projectId , formdata } :  TaskApiType ) => {
 
     const resultado = await axios.post( `${import.meta.env.VITE_API_URL}/projects/${projectId}/task` , formdata )
 
-
     if( resultado.status == 200 ) { 
         return resultado.data
     }
@@ -24,9 +23,7 @@ export async function getAllTask( projectId : string ) {
     const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${projectId}/task`)
 
     if( resultado.status == 200 ) { 
-
         return resultado.data
-
     }
     
 }
@@ -35,7 +32,7 @@ export const getOneTask = async ( { taskId , projectId } : TaskApiType ) => {
     
     const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${projectId}/task/${taskId}`)
 
-    const validacion = tasksSchema.safeParse( resultado.data)
+    const validacion = tasksNoteSchema.safeParse( resultado.data )
     
     if( validacion.success ) { 
 

@@ -117,7 +117,9 @@ export default function TaskModalDetails() {
 
                                     </div>
 
-                                    <NotesPanel/>
+                                    <NotesPanel
+                                        notes={data.notes}
+                                    />
                                     
                                 </Dialog.Panel>
                             </Transition.Child>

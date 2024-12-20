@@ -1,10 +1,44 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { NoteType } from "../../types"
+import { deleteNote } from "../../api/Note"
+import { useLocation, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export default function NoteDetails(  { nota }  : { nota : NoteType } ) {
+
+    const params = useParams()
+    const projectId = params.projectId! 
+
+    const url = useLocation()
+    const query = new URLSearchParams(url.search)
+    const taskId = query.get("viewTask")!
+    
+    const queryClient = useQueryClient()
+
+    const mutate = useMutation({ 
+        mutationFn : deleteNote ,
+        onSuccess: ( data ) => { 
+            toast.success( data )
+            queryClient.invalidateQueries( { queryKey : ['task' , taskId] })
+        },
+        onError: (error) => { 
+            toast.error( error.message)
+        }
+    })
     
     return (
-        <>
-            <p>{nota.content}</p>
+        <>  
+            <div className="flex justify-between">
+                <p>{nota.content}</p>
+
+                <button
+                    className="bg-red-400 hover:bg-red-600 p-2 text-xs text-white font-bold cursor-pointer transition-colors"
+                    onClick={() => mutate.mutate({ projectId : projectId , taskId : taskId , noteId : nota._id}) }
+                >
+                    Eliminar
+                </button>
+
+            </div>
         </>
     )
 }

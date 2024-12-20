@@ -9,6 +9,7 @@ export const noteSchema = z.object({
 })
 
 export type NoteType = z.infer <typeof noteSchema>
+export type NoteFormData = Pick<NoteType , 'content'>
 
 // TasksSchema
 export const TaskSchema = z.object({

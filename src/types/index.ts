@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-// NoteSchema
+// NoteSchema -------------------------------------------------------------
 export const noteSchema = z.object({
     _id : z.string(),
     content : z.string(),
@@ -11,7 +11,7 @@ export const noteSchema = z.object({
 export type NoteType = z.infer <typeof noteSchema>
 export type NoteFormData = Pick<NoteType , 'content'>
 
-// TasksSchema
+// TasksSchema ----------------------------------------------------------
 export const TaskSchema = z.object({
     _id : z.string(),
     description : z.string(),
@@ -47,7 +47,7 @@ export const taskstatusSchema = z.enum(["pending", "onHold" , "inProgress" ,  "u
 export type taskStatusType = z.infer<typeof taskstatusSchema>
 
 
-// ProjectSchema
+// ProjectSchema -------------------------------------------------------------
 export const projectSchema = z.object({
     _id : z.string(),
     projectName : z.string(),
@@ -64,6 +64,21 @@ export type projectType = z.infer<typeof projectSchema>;
 
 // type pa la base del formulario
 export type projectFormDataType = Pick <projectType , "projectName" | "clientName" | "description">
+
+
+// Auth & user
+
+export const authSchema  = z.object({
+    name : z.string(),
+    email : z.string().email(),
+    password : z.string(),
+    password_confirmation : z.string()
+})
+
+export type AuthType = z.infer<typeof authSchema>
+
+export type userRegisterForm = Pick <AuthType , "name" | "email" | "password" | "password_confirmation"> 
+
 
 
 

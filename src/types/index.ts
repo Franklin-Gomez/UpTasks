@@ -78,6 +78,7 @@ export const authSchema  = z.object({
 export type AuthType = z.infer<typeof authSchema>
 
 export type userRegisterForm = Pick <AuthType , "name" | "email" | "password" | "password_confirmation"> 
+export type loginForm = Pick<AuthType , "email" | "password">
 
 
 

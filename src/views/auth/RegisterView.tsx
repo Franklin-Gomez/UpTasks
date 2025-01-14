@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ErrorMessage from "../../components/ErrorMessage"
 import { userRegisterForm } from "../../types"
 import { useMutation } from "@tanstack/react-query"
@@ -15,6 +15,8 @@ export default function RegisterView() {
         password_confirmation : ""   
     }})
 
+    const navigate = useNavigate()
+
     const password = watch("password")
 
     const mutation = useMutation({
@@ -23,6 +25,7 @@ export default function RegisterView() {
 
         onSuccess : () => { 
             toast.success("Usuario Creado Correctamente")
+            navigate('/auth/login')
         } , 
 
         onError : ( errors ) => { 
@@ -37,9 +40,9 @@ export default function RegisterView() {
 
     return (
         <>
-            <h1 className="text-6xl font-bold text-white"> Iniciar sesion </h1>
+            <h1 className="text-6xl font-bold text-white"> Registrar usuario </h1>
         
-            <p className="text-gray-400 text-xl mt-2"> Comienza  a planear tus proyectos <span className="text-purple-400"> iniciando  sesion  en este formulario </span></p>
+            <p className="text-gray-400 text-xl mt-2"> Llena los Campos para Registrarte</p>
 
             <form 
                 className="bg-white grid gap-6 p-8 rounded mt-4"

@@ -4,20 +4,22 @@ import ErrorMessage from "../../components/ErrorMessage";
 
 export default function NewPasswordView() {
 
-        const { register  , formState : { errors  } , handleSubmit } = useForm({ defaultValues : { 
-            email : ""
-        }})
+    const { register  , formState : { errors  } , handleSubmit } = useForm({ defaultValues : { 
+        email : ""
+    }})
 
     return (
         <>
-            <h1 className="text-6xl font-bold text-white"> Iniciar sesion </h1>
+            <h1 className="text-6xl font-bold text-white"> Recuperar Contraseña </h1>
         
-            <p className="text-gray-400 text-xl mt-2"> Comienza  a planear tus proyectos <span className="text-purple-400"> iniciando  sesion  en este formulario </span></p>
+            <p className="text-gray-400 text-xl mt-2"> Escribe el email de registro y sigue las instrucciones </p>
 
             <form className="bg-white grid gap-6 p-5 rounded mt-4">
 
                 <div className="grid gap-3">
+                    
                     <label htmlFor="email" className="font-bold text-lg uppercase">Email</label>
+
                     <input 
                         type="email" 
                         id="email" 
@@ -34,22 +36,12 @@ export default function NewPasswordView() {
 
                 </div>
 
-                <div className="grid gap-3">
-
-                    <label htmlFor="password" className="font-bold text-lg uppercase">Password</label>
-                    <input 
-                        type="text" 
-                        placeholder="Password de Registro"
-                        className="border border-gray-200 rounded-xl p-3"
-                    />
-
-                </div>
-
                 <input 
                     type="submit" 
                     value="Crear Cuenta" 
                     className="bg-purple-700 text-white px-4 py-2 font-bold text-2xl hover:bg-purple-400 cursor-pointer"
                 />
+
             </form>
 
             <nav className="mt-10 flex flex-col space-y-4">

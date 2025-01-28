@@ -66,19 +66,21 @@ export type projectType = z.infer<typeof projectSchema>;
 export type projectFormDataType = Pick <projectType , "projectName" | "clientName" | "description">
 
 
-// Auth & user
+// Auth & user ---------------------------------------------------
 
 export const authSchema  = z.object({
     name : z.string(),
     email : z.string().email(),
     password : z.string(),
-    password_confirmation : z.string()
+    password_confirmation : z.string(),
+    token : z.string()
 })
 
 export type AuthType = z.infer<typeof authSchema>
 
 export type userRegisterForm = Pick <AuthType , "name" | "email" | "password" | "password_confirmation"> 
 export type loginForm = Pick<AuthType , "email" | "password">
+export type confirmtokenType = Pick<AuthType , "token">
 
 
 

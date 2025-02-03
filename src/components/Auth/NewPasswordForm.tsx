@@ -21,7 +21,7 @@ export default function NewPasswordForm( token :  confirmtokenType) {
         mutationFn : UpdatePasswordWithToken,
 
         onSuccess : ( data ) => { 
-            toast.success("data")
+            toast.success(data)
             navigate('/auth/login')
         },
 
@@ -81,7 +81,7 @@ export default function NewPasswordForm( token :  confirmtokenType) {
                         className="border border-gray-200 rounded-xl p-3"
                         {...register("password_confirmation" , { 
                             required : "La contraseña es obligatorio",
-                            validate : value => value === password || "Los password  no son iguales "
+                           validate : value => value === password || "Los password  no son iguales "
                         })}
                     />
 

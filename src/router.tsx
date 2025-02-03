@@ -36,7 +36,7 @@ export default function Router() {
           <Route path='/auth/forgot-password' element={<ForgotPasswordView/>}/>
           <Route path='/auth/confirm-account' element={<ConfirmAccount/>}/>
           <Route path='/auth/request-code' element={<RequestNewCodeView/>}/>
-          <Route path='/auth/new-password' element={<NewPasswordView/>}/>
+          <Route path='/auth/new-password/' element={<NewPasswordView/>}/>
 
         </Route>
 

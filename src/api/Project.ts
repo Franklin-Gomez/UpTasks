@@ -3,18 +3,25 @@ import axios from "axios";
 import { projectsSchema , projectSchema } from "../types";
 
 export async function createProject( formData : projectFormDataType ) {
+
+    console.log( formData )
     
-    const resultado = await axios.post( `${import.meta.env.VITE_API_URL}/projects/` , formData)
-    
+    const resultado = await axios.post(`${import.meta.env.VITE_API_URL}/projects/` , formData)
+
     if( resultado.status == 200 ) { 
         return resultado.data
     }
-
 }
 
 export async function getAllProject() { 
 
-    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`)
+    const token = localStorage.getItem("AUTH_TOKEN")
+
+    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/` , { 
+        headers : {
+            Authorization : `Bearer ${token}`
+        }
+    })
 
     const validacion = projectsSchema.safeParse( resultado.data )
 

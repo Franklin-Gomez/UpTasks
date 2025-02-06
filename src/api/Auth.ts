@@ -29,8 +29,11 @@ export const login = async ( formdata : loginForm ) => {
         const url = `${import.meta.env.VITE_API_URL}/user/login`
 
         const resultado = await axios.post( url , formdata )
-        
+
+        localStorage.setItem('AUTH_TOKEN' , resultado.data)
+
         return resultado.data
+        
         
     } catch (error) {
 

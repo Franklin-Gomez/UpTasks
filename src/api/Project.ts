@@ -2,9 +2,19 @@ import { projectFormDataType, projectType } from "../types";
 import axios from "axios";
 import { projectsSchema , projectSchema } from "../types";
 
-export async function createProject( formData : projectFormDataType ) {
+// interceptor de request, se ejecuta antes de enviar cualquier peticion
+axios.interceptors.request.use( config => {
 
-    console.log( formData )
+    const token = localStorage.getItem('AUTH_TOKEN')
+
+    if( token ) { 
+        config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+})
+
+export async function createProject( formData : projectFormDataType ) {
     
     const resultado = await axios.post(`${import.meta.env.VITE_API_URL}/projects/` , formData)
 
@@ -15,13 +25,14 @@ export async function createProject( formData : projectFormDataType ) {
 
 export async function getAllProject() { 
 
-    const token = localStorage.getItem("AUTH_TOKEN")
+    //const token = localStorage.getItem("AUTH_TOKEN")
 
-    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/` , { 
-        headers : {
-            Authorization : `Bearer ${token}`
-        }
-    })
+    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`// ,{ 
+    //    headers : {
+    //       Authorization : `Bearer ${token}`
+    //    }
+    //}
+    )
 
     const validacion = projectsSchema.safeParse( resultado.data )
 

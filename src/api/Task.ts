@@ -8,6 +8,18 @@ type TaskApiType = {
     status? : taskStatusType
 }
 
+// interceptor de request, se ejecuta antes de enviar cualquier peticion
+axios.interceptors.request.use( config => {
+
+    const token = localStorage.getItem('AUTH_TOKEN')
+
+    if( token ) { 
+        config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+})
+
 export const createTask = async ( { projectId , formdata } :  TaskApiType ) => { 
 
     const resultado = await axios.post( `${import.meta.env.VITE_API_URL}/projects/${projectId}/task` , formdata )

@@ -1,5 +1,5 @@
 import axios, { isAxiosError } from "axios"
-import { confirmtokenType, forgotPasswordType, loginForm, NewPasswordFormType, userRegisterForm } from "../types"
+import { confirmtokenType, forgotPasswordType, loginForm, NewPasswordFormType, userRegisterForm, userSchema } from "../types"
 
 
 export const createUser = async ( formdata : userRegisterForm ) => { 
@@ -112,6 +112,27 @@ export const UpdatePasswordWithToken  = async ( { token , formData }  : { formDa
             throw new Error ( error.response.data.error )
         }
 
+    }
+}
+
+export const getUser = async () => { 
+
+    try {
+
+        const url = `${import.meta.env.VITE_API_URL}/user`
+
+        const resultado = await axios.get( url )
+
+        const validacion = userSchema.safeParse ( resultado.data )
+
+        return validacion.data
+        
+    } catch (error) {
+
+        if ( isAxiosError( error ) && error.response ) { 
+            throw new Error ( error.response.data.error )
+        }
+        
     }
 }
 

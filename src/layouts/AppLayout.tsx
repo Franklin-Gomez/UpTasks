@@ -1,12 +1,22 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, Navigate, Outlet } from "react-router-dom"
 import Logo from "../components/Logo"
 import NavMenu from "../components/NavMenu"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import { userAuth } from "../hooks/useAuth"
 
 
 export default function AppLayout() {
-    return (
+
+    const { data , isError , isLoading } = userAuth()
+
+    if (isLoading ) return 'Cargando...'
+
+    if( isError ) { 
+        return <Navigate to={'/auth/login'}/>
+    }
+
+    if (data ) return (
 
         <>
             <div className="bg-gray-200 h-screen">
@@ -27,7 +37,7 @@ export default function AppLayout() {
                         </div>
 
                         <NavMenu
-                            name="D.Gomez"
+                            data={ data}
                         />
 
                     </div>

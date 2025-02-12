@@ -84,6 +84,36 @@ export type confirmtokenType = Pick<AuthType , "token">
 export type forgotPasswordType = Pick<AuthType , "email">
 export type NewPasswordFormType = Pick<AuthType , "password" | "password_confirmation">
 
+// User  -------------------------------------------------------
+
+export const  userSchema =  authSchema.pick({
+
+    name : true,
+    email : true
+
+}).extend({
+
+    _id : z.string()
+
+})
+
+export type userType = z.infer<typeof userSchema >
+
+
+
+// Team Projects ------------------------------------------------------
+
+const TeamMemberSchema = userSchema.pick({
+    name : true,
+    email : true , 
+    _id : true
+})
+
+export const TeamMembersSchema = z.array( TeamMemberSchema )
+
+export type TeamMemberType = z.infer< typeof TeamMemberSchema >
+
+export type TeamMemberForm = Pick< TeamMemberType , 'email' >
 
 
 

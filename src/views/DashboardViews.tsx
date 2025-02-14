@@ -6,6 +6,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { toast } from "react-toastify"
+import { userAuth } from "../hooks/useAuth"
 
 export default function DashboardViews() {
 
@@ -15,6 +16,8 @@ export default function DashboardViews() {
         queryKey:['AllProject'],
         queryFn : getAllProject
     })
+
+    const user = userAuth()
 
     const mutation = useMutation({ 
         mutationFn : deleteProject , 
@@ -57,7 +60,21 @@ export default function DashboardViews() {
                     <li key={project._id} className="flex justify-between gap-x-6 px-5 py-10">
 
                         <div className="flex min-w-0 gap-x-4">
+
                             <div className="min-w-0 flex-auto space-y-2">
+
+                                <div>
+                                    { user.data?._id == project.manager ? 
+
+                                        <p className='font-bold text-xs uppercase bg-indigo-50 text-indigo-500 border-2 border-indigo-500 rounded-lg inline-block  py-1 px-5'>Manager</p> 
+
+                                        :
+                                        <p className='font-bold text-xs uppercase bg-green-50 text-green-500 border-2 border-green-500 rounded-lg inline-block  py-1 px-5'>Miembreo del Equipo </p> 
+
+                                    }
+                                </div>
+                                
+
                                 <Link to={`/projects/${project._id}`}
                                     className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
                                 >{project.projectName}</Link>

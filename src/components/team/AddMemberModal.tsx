@@ -45,17 +45,7 @@ export default function AddMemberModal() {
 
     })    
 
-    // submit 
-    const submitForm = ( formdata : taskFormType ) => {
 
-        const data  = {
-            formdata : formdata, 
-            projectId
-        }
-        
-        mutation.mutate( data )
-
-    }
 
     return (
         <>

@@ -25,14 +25,7 @@ export async function createProject( formData : projectFormDataType ) {
 
 export async function getAllProject() { 
 
-    //const token = localStorage.getItem("AUTH_TOKEN")
-
-    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`// ,{ 
-    //    headers : {
-    //       Authorization : `Bearer ${token}`
-    //    }
-    //}
-    )
+    const resultado = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`)
 
     const validacion = projectsSchema.safeParse( resultado.data )
 

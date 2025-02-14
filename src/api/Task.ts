@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { isAxiosError } from "axios"
 import { tasksNoteSchema, tasksSchema, taskStatusType, taskType } from "../types"
 
 type TaskApiType = { 
@@ -22,11 +22,20 @@ axios.interceptors.request.use( config => {
 
 export const createTask = async ( { projectId , formdata } :  TaskApiType ) => { 
 
-    const resultado = await axios.post( `${import.meta.env.VITE_API_URL}/projects/${projectId}/task` , formdata )
+    try {
 
-    if( resultado.status == 200 ) { 
+        const resultado = await axios.post( `${import.meta.env.VITE_API_URL}/projects/${projectId}/task` , formdata )
+
         return resultado.data
+        
+    } catch (error) {
+
+        if( isAxiosError ( error ) && error.response ) { 
+            throw new Error( error.response.data.error )
+        }
     }
+
+
 
 }
 

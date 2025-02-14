@@ -39,7 +39,7 @@ export default function AddTaskModal() {
             toast.success("Tarea creada satisfactoriamente")
         }, 
 
-        onError :  ( error ) => { 
+        onError :  (error) => { 
             toast.error( error.message )
         }
 

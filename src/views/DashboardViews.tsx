@@ -33,7 +33,7 @@ export default function DashboardViews() {
     })
 
     
-    if( data ) return (
+    if( data && user.data ) return (
         <>
             <div className=" grid gap-3">
 
@@ -70,7 +70,6 @@ export default function DashboardViews() {
 
                                         :
                                         <p className='font-bold text-xs uppercase bg-green-50 text-green-500 border-2 border-green-500 rounded-lg inline-block  py-1 px-5'>Miembreo del Equipo </p> 
-
                                     }
                                 </div>
                                 
@@ -110,22 +109,28 @@ export default function DashboardViews() {
                                             </Link>
                                         </Menu.Item>
 
-                                        <Menu.Item>
-                                            <Link to={`/projects/${project._id}/editProject`}
-                                                className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                                Editar Proyecto
-                                            </Link>
-                                        </Menu.Item>
+                                        { user.data?._id == project.manager && 
+                                            
+                                            <>
+                                                <Menu.Item>
+                                                    <Link to={`/projects/${project._id}/editProject`}
+                                                        className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                                                        Editar Proyecto
+                                                    </Link>
+                                                </Menu.Item>
 
-                                        <Menu.Item>
-                                            <button 
-                                                type='button' 
-                                                className='block px-3 py-1 text-sm leading-6 text-red-500'
-                                                onClick={() => mutation.mutate(project._id) }
-                                            >
-                                                Eliminar Proyecto
-                                            </button>
-                                        </Menu.Item>
+                                                <Menu.Item>
+                                                    <button 
+                                                        type='button' 
+                                                        className='block px-3 py-1 text-sm leading-6 text-red-500'
+                                                        onClick={() => mutation.mutate(project._id) }
+                                                    >
+                                                        Eliminar Proyecto
+                                                    </button>
+                                                </Menu.Item>
+                                            </>
+
+                                        }
 
                                     </Menu.Items>
                                 </Transition>

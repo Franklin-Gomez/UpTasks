@@ -123,7 +123,7 @@ export const getUser = async () => {
 
         const resultado = await axios.get( url )
 
-        const validacion = userSchema.safeParse ( resultado.data )
+        const validacion = userSchema.safeParse( resultado.data )
 
         return validacion.data
         

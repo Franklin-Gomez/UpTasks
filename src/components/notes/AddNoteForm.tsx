@@ -43,8 +43,6 @@ export default function AddNoteForm() {
         const data = { 
             formData : formData ,
             taskId : taskId,
-
-
             projectId : projectId
         }
 

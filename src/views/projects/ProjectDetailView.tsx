@@ -5,13 +5,16 @@ import { getFullProject } from "../../api/Project";
 import AddTaskModal from "../../components/task/AddTaskModal";
 import EditTaskModal from "../../components/task/EditTaskModal";
 import TaskModalDetails from "../../components/task/TaskDetailsModal";
-
+import { userAuth } from "../../hooks/useAuth";
+import { useMemo } from "react";
 
 export default function ProjectDetailView() {
 
+    
+    const userData = userAuth()
     const navigate = useNavigate()
-
     const params = useParams()
+
     const projectId = params.projectId!
 
     const { data } = useQuery({
@@ -19,6 +22,8 @@ export default function ProjectDetailView() {
         queryFn : () => getFullProject(projectId),
         retry : false
     })
+
+    const canEdit = useMemo(() => userData.data?._id ==  data?.manager , [ userData.data , data ])
 
     if( data ) return (
         <>
@@ -58,6 +63,7 @@ export default function ProjectDetailView() {
 
             <TaskList
                 tasks={data.tasks}
+                canEdit={canEdit}
             />
 
             <AddTaskModal/>

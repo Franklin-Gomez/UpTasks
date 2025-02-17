@@ -8,6 +8,7 @@ type NotesPanelProps = {
 
 export default function NotesPanel( { notes } : NotesPanelProps) {
 
+
     return (
 
         <>

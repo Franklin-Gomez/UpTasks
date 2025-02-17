@@ -5,7 +5,9 @@ export const noteSchema = z.object({
     _id : z.string(),
     content : z.string(),
     createdBy : z.string(),
-    task : z.string()
+    task : z.string(),
+    createdAt : z.string()
+
 })
 
 export type NoteType = z.infer <typeof noteSchema>

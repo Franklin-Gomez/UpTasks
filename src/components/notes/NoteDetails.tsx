@@ -3,6 +3,8 @@ import { NoteType } from "../../types"
 import { deleteNote } from "../../api/Note"
 import { useLocation, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
+import { userAuth } from "../../hooks/useAuth"
+import { useMemo } from "react"
 
 export default function NoteDetails(  { nota }  : { nota : NoteType } ) {
 
@@ -14,6 +16,10 @@ export default function NoteDetails(  { nota }  : { nota : NoteType } ) {
     const taskId = query.get("viewTask")!
     
     const queryClient = useQueryClient()
+
+    const userId = userAuth()
+    
+    const canDelete = useMemo(() => userId.data?._id.toString() == nota.createdBy.toString() , [ userId.data?._id] )
 
     const mutate = useMutation({ 
         mutationFn : deleteNote ,
@@ -31,12 +37,20 @@ export default function NoteDetails(  { nota }  : { nota : NoteType } ) {
             <div className="flex justify-between">
                 <p>{nota.content}</p>
 
-                <button
-                    className="bg-red-400 hover:bg-red-600 p-2 text-xs text-white font-bold cursor-pointer transition-colors"
-                    onClick={() => mutate.mutate({ projectId : projectId , taskId : taskId , noteId : nota._id}) }
-                >
-                    Eliminar
-                </button>
+                {   canDelete &&
+
+                    <>
+                        <button
+                            className="bg-red-400 hover:bg-red-600 p-2 text-xs text-white font-bold cursor-pointer transition-colors"
+                            onClick={() => mutate.mutate({ projectId : projectId , taskId : taskId , noteId : nota._id}) }
+                        >
+                            Eliminar
+                        </button>
+                    </>
+
+                }
+
+
 
             </div>
         </>

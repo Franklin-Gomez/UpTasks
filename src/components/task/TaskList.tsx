@@ -3,6 +3,7 @@ import TaskCard from "./TaskCard";
 
 type TaskListProps = { 
     tasks : taskType[]
+    canEdit : boolean
 }
 
 type GroupedTasks = { 
@@ -35,7 +36,7 @@ export const statusTranslations : { [ key : string ] : string } = {
 }
 
 
-export default function TaskList(  { tasks } : TaskListProps ) {
+export default function TaskList(  { tasks , canEdit } : TaskListProps ) {
 
     const groupedTasks = tasks.reduce((acc, task) => {
 
@@ -72,7 +73,7 @@ export default function TaskList(  { tasks } : TaskListProps ) {
 
                                 ) : (
 
-                                    tasks.map(task => <TaskCard key={task._id} task={task} />)
+                                    tasks.map(task => <TaskCard key={task._id} task={task} canEdit={canEdit} />)
 
                                 )}
                             </ul>

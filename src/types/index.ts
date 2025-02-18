@@ -119,7 +119,14 @@ export type TeamMemberType = z.infer< typeof TeamMemberSchema >
 export type TeamMemberForm = Pick< TeamMemberType , 'email' >
 
 
+// Profile user--------------------------------------------------------------
 
+export const ProfileSchema = z.object({
+    name : z.string(),
+    email : z.string().email()
+})
+
+export type ProfileFormType = z.infer< typeof ProfileSchema >
 
 
 

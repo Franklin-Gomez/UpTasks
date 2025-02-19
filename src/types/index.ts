@@ -128,5 +128,13 @@ export const ProfileSchema = z.object({
 
 export type ProfileFormType = z.infer< typeof ProfileSchema >
 
+export const UpdateCurrentPasswordFormSchema  = z.object({
+    currentPassword : z.string(),
+    newPassword : z.string() ,
+    newPasswordRepeat : z.string() 
+})
+
+export type UpdateCurrentPasswordFormType = z.infer< typeof UpdateCurrentPasswordFormSchema >
+
 
 

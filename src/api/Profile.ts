@@ -1,5 +1,5 @@
 import axios, { isAxiosError } from "axios"
-import { ProfileFormType } from "../types"
+import { ProfileFormType, UpdateCurrentPasswordFormType } from "../types"
 
 // interceptor de request, se ejecuta antes de enviar cualquier peticion
 axios.interceptors.request.use( config => {
@@ -31,6 +31,26 @@ export const updateProfile = async ( formdata :  ProfileFormType ) => {
             throw new Error( error.response.data.error )
         }
     
+    }
+
+}
+
+export const updateCurrentUserPassword = async ( formdata : UpdateCurrentPasswordFormType ) => { 
+
+    const url = `${import.meta.env.VITE_API_URL}/user/auth/update-password`
+
+    try {
+
+        const resultado = await axios.post( url , formdata )
+
+        if( resultado.status == 200) {
+            return resultado.data
+        }
+
+    } catch (error) {
+        if( isAxiosError ( error ) && error.response ) { 
+            throw new Error( error.response.data.error )
+        }
     
     }
 

@@ -12,7 +12,7 @@ type ProfileFormPropsType = {
 export default function ProfileForm(  { userInfo }  : ProfileFormPropsType) {
 
 
-    const { register , formState : { errors } , handleSubmit , setValue} = useForm({
+    const { register , formState : { errors } , handleSubmit } = useForm({
         defaultValues : { 
             name : userInfo.name,
             email : userInfo.email
@@ -79,7 +79,7 @@ export default function ProfileForm(  { userInfo }  : ProfileFormPropsType) {
                         />
 
                         { errors.email && (
-                           <ErrorMessage> { errors.email.message } </ErrorMessage>
+                           <ErrorMessage> { errors.email.message } </ErrorMessage> 
                         )} 
 
                     </div>

@@ -6,6 +6,7 @@ import { Fragment } from "react/jsx-runtime"
 import { deleteTask } from "../../api/Task"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "react-toastify"
+import { useDraggable } from "@dnd-kit/core"
 
 type TaskCardProps = { 
     task : taskType
@@ -45,10 +46,26 @@ export default function TaskCard( { task , canEdit } : TaskCardProps ) {
         mutate.mutate( data )
     }
 
+    const { attributes , listeners , setNodeRef , transform } = useDraggable({
+        id : task._id
+    })
+
+    const style = transform ? { 
+        //transform : `translateX(${transform.x}px)` // propiedad que permite mover el elemento en x
+        transform : `translate3d(${transform.x}px , ${transform.y}px , 0)`
+    } : undefined
+
     return (
 
         <li className="p-5 bg-white border border-slate-300 flex justify-between gap-3">
-            <div  className="min-w-0 flex flex-col gap-y-4 ">
+            <div  
+                // pasandole las funcionalidades listeners y attributes
+                {...listeners}
+                {...attributes}
+                ref={setNodeRef}
+                style={style}
+                className="min-w-0 flex flex-col gap-y-4 "
+            >
                 <button
                     type="button"
                     className="text-xl font-bold text-slate-600 text-left"
